@@ -1,0 +1,7 @@
+<select name="cliente" class="form-control"
+  (change)="enviarCliente($event)">
+  <option value="0">Seleccione un cliente</option>
+  <option *ngFor="let cliente of clientes" value="{{cliente.idCliente}}">
+    {{cliente.nombre + " " + cliente.apellido}}
+  </option>
+</select>

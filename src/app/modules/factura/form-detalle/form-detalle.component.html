@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-header">Detalle</div>
+  <div class="card-body">
+    <div class="d-flex flex-lg-row flex-column flex-sm-column">
+      <div class="col-lg-5 p-2">
+        <div class="form-group">
+          <label>Producto</label>
+          <select-productos
+            (change)="changeProduct($event)"></select-productos>
+        </div>
+
+      </div>
+      <div class="col-lg-2 p-2">
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" class="form-control m-auto" min="0" max="{{this.detalle.producto.stock}}"
+          [ngModel]="this.detalle.cantidad" (ngModelChange)="this.detalle.cantidad = $event"
+          (change)="calcularPrecio()" [disabled]="this.detalle.producto.stock == 0" />
+        </div>
+      </div>
+      <div class="col-lg-4 p-2 text-center">
+        <div class="form-group">
+          <label>Precio</label>
+          <label type="text" class="form-control border-0">{{detalle.precio | currency}}</label>
+        </div>
+      </div>
+      <div class="col-lg-1 p-2 text-center">
+        <div class="form-group">
+          <label>Añadir</label>
+          <button class="btn btn-primary" (click)="agregarDetalle()"><i class="fa fa-plus-circle"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped container">
+      <thead class="text-center row border">
+        <th class="col-lg-5 col-md-5 col-sm-3">Producto</th>
+        <th class="col-lg-2 col-md-2 col-sm-3">Cantidad</th>
+        <th class="col-lg-3 col-md-3 col-sm-3">Precio</th>
+        <th class="col-lg-2 col-md-2 col-sm-3">Remover</th>
+      </thead>
+      <tbody *ngIf="detalles?.length > 0">
+        <tr class="row text-center" *ngFor="let detalleFactura of detalles">
+          <td class="col-lg-5 col-md-5 col-sm-3">{{ detalleFactura.producto.nombre }}</td>
+          <td class="col-lg-2 col-md-2 col-sm-3">{{ detalleFactura.cantidad }}</td>
+          <td class="col-lg-3 col-md-3 col-sm-3">{{ detalleFactura.precio | currency }}</td>
+          <td class="col-lg-2 col-md-2 col-sm-2">
+            <button class="btn btn-danger"
+                    value="{{ detalleFactura.producto.idProducto }}"
+                    (click)="removerDetalle($event.target.value)">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container-fluid">
+      <div class="d-flex flex-row">
+        <div class="col-lg-6">
+          <h5>Total</h5>
+        </div>
+        <div class="col-lg-6 text-right">
+          <h5>{{ total | currency }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+<select name="producto" class="form-control">
+  <option value="0">Seleccione un producto</option>
+  <option  *ngFor="let producto of productos" value="{{producto.idProducto}}">
+    {{producto.nombre}}
+  </option>
+</select>
